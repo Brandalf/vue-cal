@@ -39,10 +39,14 @@ export const isDateToday = date => {
 }
 
 // Returns today if it's FirstDayOfWeek (Monday or Sunday) or previous FirstDayOfWeek otherwise.
-export const getPreviousFirstDayOfWeek = (date = null, weekStartsOnSunday) => {
+export const getPreviousFirstDayOfWeek = (date = null, weekStartsOnSunday, useDateAsFirstDayOfWeek) => {
   let prevFirstDayOfWeek = (date && new Date(date.valueOf())) || new Date()
-  let dayModifier = weekStartsOnSunday ? 7 : 6
-  prevFirstDayOfWeek.setDate(prevFirstDayOfWeek.getDate() - (prevFirstDayOfWeek.getDay() + dayModifier) % 7)
+
+  if (useDateAsFirstDayOfWeek === false) {
+    let dayModifier = weekStartsOnSunday ? 7 : 6
+    prevFirstDayOfWeek.setDate(prevFirstDayOfWeek.getDate() - (prevFirstDayOfWeek.getDay() + dayModifier) % 7)
+  }
+  
   return prevFirstDayOfWeek
 }
 

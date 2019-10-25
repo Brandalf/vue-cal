@@ -162,6 +162,7 @@ export default {
     minDate: { type: [String, Date], default: '' },
     maxDate: { type: [String, Date], default: '' },
     startWeekOnSunday: { type: Boolean, default: false },
+    useDateAsFirstDayOfWeek: {type: Boolean, default: true},
     small: { type: Boolean, default: false },
     xsmall: { type: Boolean, default: false },
     clickToNavigate: { type: Boolean, default: false },
@@ -311,7 +312,7 @@ export default {
 
       if (!date) {
         date = this.view.selectedDate || this.view.startDate
-        if (view === 'week') date = getPreviousFirstDayOfWeek(date, this.startWeekOnSunday)
+        if (view === 'week') date = getPreviousFirstDayOfWeek(date, this.startWeekOnSunday, this.useDateAsFirstDayOfWeek)
       }
 
       switch (view) {
@@ -334,7 +335,7 @@ export default {
           // If the first day of the month is not a FirstDayOfWeek (Monday or Sunday), prepend missing days to the days array.
           let startDate = new Date(this.view.startDate)
           if (startDate.getDay() !== (this.startWeekOnSunday ? 0 : 1)) {
-            startDate = getPreviousFirstDayOfWeek(startDate, this.startWeekOnSunday)
+            startDate = getPreviousFirstDayOfWeek(startDate, this.startWeekOnSunday, this.useDateAsFirstDayOfWeek)
           }
 
           // Used in viewCells computed array & returned in emitted events.
@@ -435,7 +436,7 @@ export default {
           firstCellDate = new Date(startDate.getFullYear(), startDate.getMonth() + 1 * modifier, 1)
           break
         case 'week':
-          firstCellDate = getPreviousFirstDayOfWeek(startDate, this.startWeekOnSunday)[next ? 'addDays' : 'subtractDays'](7)
+          firstCellDate = getPreviousFirstDayOfWeek(startDate, this.startWeekOnSunday, this.useDateAsFirstDayOfWeek)[next ? 'addDays' : 'subtractDays'](7)
           break
         case 'day':
           firstCellDate = startDate[next ? 'addDays' : 'subtractDays'](1)
