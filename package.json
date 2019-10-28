@@ -5,7 +5,7 @@
   "repository": "https://github.com/antoniandre/vue-cal",
   "author": "Antoni Andre <antoniandre.web@gmail.com>",
   "license": "MIT",
-  "main": "./dist/vuecal.common.js",
+  "main": "dist/vuecal.common.js",
   "unpkg": "dist/vuecal.umd.min.js",
   "keywords": [
     "full calendar",
